@@ -3,6 +3,7 @@
 {% block topnav %}
   {% if g.user %}
     <div class="top-menu">
+
                 <h1>{{ g.user['username'] }}</h1>
                 <a href="{{ url_for('blog.create') }}">
                     <span class="icon"><i class="fas fa-pen"></i></span>
@@ -12,7 +13,7 @@
   {% endif %}
 {% endblock %}
 {% block posts %}
-  <p class="title">{% block title %}Posts{% endblock %}</p>
+  <p class="title">{% block title %}Your Posts ({{ length }}){% endblock %}</p>
 {% endblock %}
 {% block content %}
   {% for post in posts %}

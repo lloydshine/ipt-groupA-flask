@@ -1,24 +1,57 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<title>{% block title %}{% endblock %} - Fishbook</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1><a href="{{ url_for('index') }}">Flaskr</a></h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<div class="wrapper">
+        <!--Top menu -->
+        <div class="sidebar">
+            <div class="profile">
+                <h1><a href="{{ url_for('index') }}">Reglaaa</a></h1>
+            </div>
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                {% if not g.user %}
+                <li>
+                    <a href="{{ url_for('auth.login') }}">
+                        <span class="icon"><i class="fas fa-sign"></i></span>
+                        <span class="item">Login</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.register') }}">
+                        <span class="icon"><i class="fas fa-book"></i></span>
+                        <span class="item">Register</span>
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ url_for('blog.profile', userid=g.user.id) }}">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        <span class="item">Profile</span>
+                    </a>
+                </li>
+                  <li><a href="{{ url_for('auth.logout') }}">
+                      <span class="icon"><i class="fas fa-book"></i></span>
+                      <span class="item">Logout</span>
+                  </a>
+                {% endif %}
+            </ul>
+        </div>
+        <section class="content">
+            {% block topnav %}{% endblock %}
+  <div class="posts">
+    {% block posts %}{% endblock %}
+
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
   {% block content %}{% endblock %}
+      </div>
 </section>
+</div>
+

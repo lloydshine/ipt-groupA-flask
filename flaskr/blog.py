@@ -83,6 +83,22 @@ def create():
     return render_template("blog/create.html")
 
 
+@bp.route("/<int:userid>/profile")
+@login_required
+def profile(userid):
+    """Show all the posts, most recent first."""
+    db = get_db()
+    posts = db.execute(
+        "SELECT p.id, title, body, created, author_id, username"
+        " FROM post p JOIN user u ON p.author_id = u.id"
+        " WHERE p.author_id = ?"
+        " ORDER BY created DESC"
+        ,(userid,),
+    ).fetchall()
+    print(len(posts))
+    return render_template("blog/profile.html", posts=posts, length=len(posts))
+
+
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):

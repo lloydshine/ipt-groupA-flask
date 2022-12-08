@@ -1,72 +1,172 @@
-html {
-  font-family: sans-serif;
-  background: #eee;
-  padding: 1rem;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
-body {
-  max-width: 960px;
-  margin: 0 auto;
-  background: white;
+body{
+    background: #FFFFF;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: serif;
-  color: #377ba8;
-  margin: 1rem 0;
+.wrapper .sidebar{
+    background: #C21010;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 255px;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
 }
 
-a {
-  color: #377ba8;
+.wrapper .sidebar .profile{
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid lightgray;
+.wrapper .sidebar .profile h1{
+    margin: 10px 0 5px;
+}
+.wrapper .sidebar .profile a{
+    font-size: 50px;
+    color: #E64848;
 }
 
-nav {
-  background: lightgray;
-  display: flex;
-  align-items: center;
-  padding: 0 0.5rem;
+.wrapper .sidebar ul li a{
+    display: block;
+    height: 100px;
+    padding: 30px;
+    color: white;
+    font-size: 30px;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-nav h1 {
-  flex: auto;
-  margin: 0;
+.wrapper .sidebar ul li a .icon{
+    color: #dee4ec;
+    width: 30px;
+    display: inline-block;
+    margin-right: 20px;
 }
 
-nav h1 a {
-  text-decoration: none;
-  padding: 0.25rem 0.5rem;
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+    background: white;
+    color: #C21010;
 }
 
-nav ul  {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon{
+    color: #C21010;
 }
 
-nav ul li a, nav ul li span, header .action {
-  display: block;
-  padding: 0.5rem;
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+    display: block;
 }
 
-.content {
-  padding: 0 1rem 1rem;
+.wrapper .content {
+    width: 81%;
+    margin-left: 16rem;
 }
 
-.content > header {
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  align-items: flex-end;
+.top-menu {
+    height: 90px;
+    background-color: #CFE8A9;
 }
 
-.content > header h1 {
-  flex: auto;
-  margin: 1rem 0 0.25rem 0;
+.top-menu a {
+    font-size: 20px;
+}
+
+.top-menu a, h1 {
+    margin-left: 50px;
+}
+
+.posts {
+    padding: 50px;
+}
+
+.post {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #E64848;
+    transition: all 1s ease;
+}
+
+.post:hover {
+    font-size: 20px;
+    transition: all 0.5s ease;
+}
+
+.post .about {
+    color: wheat;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.form {
+    height: 390px;
+    display: block;
+    border: none;
+    text-align: center;
+}
+.blank {
+    height: 20px;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+    border: 1px solid #dddfe2;
+    display: block;
+    margin: 20px auto;
+    text-align: left;
+    padding: 14px 10px;
+    width: 500px;
+    height: 60px;
+    outline: none;
+    border-radius: 6px;
+    transition: 0.25s;
+}
+
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
+    border-color: #1877f2;
+}
+
+.form input[type="submit"] {
+    border: 0;
+    background: #42b729;
+    display: block;
+    margin:  20px auto;
+    text-align: center;
+    padding: 14px 40px;
+    width: 300px;
+    outline: none;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.form input[type="submit"]:hover {
+    background: #297019;
+}
+
+.form a {
+    color: #1877f2;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    right: 50%;
+}
+.form a:hover {
+    text-decoration: underline;
 }
 
 .flash {
@@ -76,59 +176,8 @@ nav ul li a, nav ul li span, header .action {
   border: 1px solid #377ba8;
 }
 
-.post > header {
-  display: flex;
-  align-items: flex-end;
-  font-size: 0.85em;
-}
-
-.post > header > div:first-of-type {
-  flex: auto;
-}
-
-.post > header h1 {
-  font-size: 1.5em;
-  margin-bottom: 0;
-}
-
-.post .about {
-  color: slategray;
-  font-style: italic;
-}
-
-.post .body {
-  white-space: pre-line;
-}
-
-.content:last-child {
-  margin-bottom: 0;
-}
-
-.content form {
-  margin: 1em 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.content label {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-}
-
-.content input, .content textarea {
-  margin-bottom: 1em;
-}
-
-.content textarea {
-  min-height: 12em;
-  resize: vertical;
-}
-
-input.danger {
-  color: #cc2f2e;
-}
-
-input[type=submit] {
-  align-self: start;
-  min-width: 10em;
+.title {
+    color: #C21010;
+    font-weight: bold;
+    font-size: 30px;
 }
