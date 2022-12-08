@@ -181,3 +181,42 @@ body{
     font-weight: bold;
     font-size: 30px;
 }
+
+input.danger {
+  color: #cc2f2e;
+}
+
+.content form {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+align-self: start;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.content input, .content textarea {
+font-size: 20px;
+  margin-bottom: 1em;
+}
+
+.content textarea {
+  min-height: 12em;
+  resize: vertical;
+}
+
+.form input.danger {
+    background: #cc2f2e;
+}
+
+.form input.danger:hover {
+    background: #823c3c;
+}
+
+input[type=submit] {
+  align-self: start;
+  min-width: 10em;
+}

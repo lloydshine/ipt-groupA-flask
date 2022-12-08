@@ -35,7 +35,7 @@
                         <span class="item">Profile</span>
                     </a>
                 </li>
-                  <li><a href="{{ url_for('auth.logout') }}">
+                  <li><a href="{{ url_for('auth.logout') }}" onclick="return confirm('Are you sure?');">
                       <span class="icon"><i class="fas fa-book"></i></span>
                       <span class="item">Logout</span>
                   </a>
