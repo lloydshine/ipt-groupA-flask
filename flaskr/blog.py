@@ -95,7 +95,6 @@ def profile(userid):
         " ORDER BY created DESC"
         ,(userid,),
     ).fetchall()
-    print(len(posts))
     return render_template("blog/profile.html", posts=posts, length=len(posts))
 
 
