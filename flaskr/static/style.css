@@ -10,7 +10,7 @@
 }
 
 body{
-    background: #FFFFF;
+    background: white;
 }
 
 .wrapper .sidebar{
@@ -76,16 +76,21 @@ body{
 }
 
 .top-menu {
+    display: block;
     height: 90px;
     background-color: #CFE8A9;
+    padding: 20px 50px 50px 50px;
+    transition: all 1s ease;
 }
 
 .top-menu a {
+
     font-size: 20px;
 }
 
 .top-menu a, h1 {
-    margin-left: 50px;
+    display: inline-block;
+    margin-left: 20px;
 }
 
 .posts {
