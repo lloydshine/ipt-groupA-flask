@@ -225,3 +225,12 @@ input[type=submit] {
   align-self: start;
   min-width: 10em;
 }
+
+.opt {
+    display: block;
+}
+
+.opt a,p {
+    display: inline-block;
+    margin-right: 20px;
+}

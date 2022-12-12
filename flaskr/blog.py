@@ -18,12 +18,32 @@ def index():
     """Show all the posts, most recent first."""
     db = get_db()
     posts = db.execute(
-        "SELECT p.id, title, body, created, author_id, username"
+        "SELECT p.id, title, body, created, author_id, username,"
+        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes"
         " FROM post p JOIN user u ON p.author_id = u.id"
         " ORDER BY created DESC"
     ).fetchall()
     return render_template("blog/index.html", posts=posts)
 
+def get_likers(post_id):
+    likes = get_db().execute(
+        "SELECT post_id,user_id"
+        " FROM likes"
+        " WHERE post_id = ?",
+        (post_id,),
+    ).fetchall()
+    return likes
+
+@bp.route('/like/<int:post_id>/<action>')
+@login_required
+def like_action(post_id, action):
+    if action == 'like':
+        db = get_db()
+        db.execute(
+            "INSERT INTO likes(post_id,user_id) VALUES(?,?)", (post_id,g.user["id"])
+        )
+        db.commit()
+    return redirect(request.referrer)
 
 def get_post(id, check_author=True):
     """Get a post and its author by id.
@@ -89,7 +109,8 @@ def profile(userid):
     """Show all the posts, most recent first."""
     db = get_db()
     posts = db.execute(
-        "SELECT p.id, title, body, created, author_id, username"
+        "SELECT p.id, title, body, created, author_id, username,"
+        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes"
         " FROM post p JOIN user u ON p.author_id = u.id"
         " WHERE p.author_id = ?"
         " ORDER BY created DESC"
