@@ -241,6 +241,7 @@ input[type=submit] {
 .opt a,p {
     display: inline-block;
     margin-right: 20px;
+    color: #808080;
 }
 
 .comment {
@@ -251,6 +252,7 @@ input[type=submit] {
     border: 5px solid #823c3c;
     transition: all 1s ease;
     font-size: 20px;
+
 }
 
 .comment .about {
@@ -262,4 +264,6 @@ input[type=submit] {
 p.body {
   white-space: pre-line;
   font-size: 20px;
+  color: #000000
+  !important;
 }
