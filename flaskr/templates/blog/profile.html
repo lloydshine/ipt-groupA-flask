@@ -1,17 +1,5 @@
 {% extends 'base.html' %}
 
-{% block topnav %}
-  {% if g.user %}
-    <div class="top-menu">
-
-                <h1>{{ g.user['username'] }}</h1>
-                <a href="{{ url_for('blog.create') }}">
-                    <span class="icon"><i class="fas fa-pen"></i></span>
-                    <span class="item">Create New Post</span>
-                </a>
-            </div>
-  {% endif %}
-{% endblock %}
 {% block posts %}
   <p class="title">{% block title %}Your Posts ({{ length }}){% endblock %}</p>
 {% endblock %}
@@ -19,22 +7,24 @@
   {% for post in posts %}
     <article class="post">
         <div class="body">
-                        <h2>{{ post['title'] }}</h2>
-                        <p class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</p>
-                        <br>
-                        <p>{{ post['body'] }}</p>
+            <h2>{{ post['title'] }}</h2>
+            <p class="about">by {{ post['username'] }} on {{ post['created'].strftime("%B %d, %Y, %I:%M %p") }}</p>
+            <br>
+            <br>
+            <p class="body">{{ post['body'] }}</p>
         </div>
-        {% if g.user['id'] == post['author_id'] %}
-        <br>
-                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">
-                        <span class="icon"><i class="fas fa-trash"></i></span>
-                        <span class="item">Edit Post</span>
-                    </a>
-        {% endif %}
     </article>
     <div class="opt">
         <span class="icon">&nbsp&nbsp&nbspLikes: <i class="fas fa-heart"></i></span>
         <p>{{ post['likes'] }}</p>
+        <span class="icon">&nbsp&nbsp&nbspComments: <i class="fas fa-comment"></i></span>
+        <p> {{ post.comments }}</p>
+        {% if g.user['id'] == post['author_id'] %}
+                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">
+                        <span class="icon"><i class="fas fa-pen"></i></span>
+                        <span class="item">Edit Post</span>
+                    </a>
+        {% endif %}
     </div>
   {% endfor %}
 {% endblock %}

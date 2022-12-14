@@ -35,15 +35,25 @@
                         <span class="item">Profile</span>
                     </a>
                 </li>
-                  <li><a href="{{ url_for('auth.logout') }}" onclick="return confirm('Are you sure?');">
-                      <span class="icon"><i class="fas fa-book"></i></span>
-                      <span class="item">Logout</span>
+                  <li><a href="{{ url_for('blog.create') }}">
+                      <span class="icon"><i class="fas fa-pen"></i></span>
+                      <span class="item">New Post</span>
                   </a>
                 {% endif %}
             </ul>
         </div>
         <section class="content">
-            {% block topnav %}{% endblock %}
+            {% if g.user %}
+    <div class="top-menu">
+                <p>Logged in as: </p>
+                <h1>{{ g.user['username'] }}</h1>
+                <a href="{{ url_for('auth.logout') }}" onclick="return confirm('Are you sure?');">
+                    <span class="icon"><i class="fas fa-arrow-right"></i></span>
+                    <span class="item">LOGOUT</span>
+                </a>
+            </div>
+  {% endif %}
+            <br>
   <div class="posts">
     {% block posts %}{% endblock %}
 
