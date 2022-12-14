@@ -25,15 +25,6 @@ def index():
     ).fetchall()
     return render_template("blog/index.html", posts=posts)
 
-def get_likers(post_id):
-    likes = get_db().execute(
-        "SELECT post_id,user_id"
-        " FROM likes"
-        " WHERE post_id = ?",
-        (post_id,),
-    ).fetchall()
-    return likes
-
 @bp.route('/like/<int:post_id>/<action>')
 @login_required
 def like_action(post_id, action):
@@ -41,6 +32,12 @@ def like_action(post_id, action):
         db = get_db()
         db.execute(
             "INSERT INTO likes(post_id,user_id) VALUES(?,?)", (post_id,g.user["id"])
+        )
+        db.commit()
+    elif action == 'unlike':
+        db = get_db()
+        db.execute(
+            "DELETE FROM likes WHERE post_id = ? AND user_id = ?", (post_id, g.user["id"])
         )
         db.commit()
     return redirect(request.referrer)

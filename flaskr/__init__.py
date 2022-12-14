@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 ##flask --app flaskr --debug run
+##flask --app flaskr init-db
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""

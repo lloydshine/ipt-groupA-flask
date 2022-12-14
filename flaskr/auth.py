@@ -37,10 +37,17 @@ def load_logged_in_user():
 
     if user_id is None:
         g.user = None
+        g.liked = None;
     else:
         g.user = (
             get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
         )
+        likedd = (
+            get_db().execute("SELECT post_id,user_id FROM likes WHERE user_id = ?", (user_id,)).fetchall()
+        )
+        g.liked = []
+        for like in likedd:
+            g.liked.append([like['post_id'],like['user_id']])
 
 
 @bp.route("/register", methods=("GET", "POST"))

@@ -26,21 +26,32 @@
         {% if g.user['id'] == post['author_id'] %}
         <br>
                     <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">
-                        <span class="icon"><i class="fas fa-trash"></i></span>
+                        <span class="icon"><i class="fas fa-pen"></i></span>
                         <span class="item">Edit Post</span>
                     </a>
         {% endif %}
     </article>
     <div class="opt">
         {% if g.user %}
-        <a href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">
-            <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
-            <span class="item">Like</span>
-        </a>
+            {% if [post['author_id'],g.user['id']] in g.liked %}
+                <a href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">
+                    <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
+                    <span class="item">Unlike</span>
+                </a>
+            {% else %}
+                <a href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">
+                    <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
+                    <span class="item">Like {{ like }}</span>
+                </a>
+            {% endif %}
         {% else %}
         <span class="icon">&nbsp&nbsp&nbspLikes: <i class="fas fa-heart"></i></span>
         {% endif %}
         <p>{{ post['likes'] }}</p>
+        <a href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">
+            <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-comment"></i></span>
+            <span class="item">Comments</span>
+        </a>
     </div>
   {% endfor %}
 {% endblock %}
