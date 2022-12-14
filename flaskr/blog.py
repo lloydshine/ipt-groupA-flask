@@ -19,11 +19,61 @@ def index():
     db = get_db()
     posts = db.execute(
         "SELECT p.id, title, body, created, author_id, username,"
-        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes"
+        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes,"
+        "(SELECT COUNT(user_id) FROM comments WHERE post_id = p.id) AS comments"
         " FROM post p JOIN user u ON p.author_id = u.id"
         " ORDER BY created DESC"
     ).fetchall()
     return render_template("blog/index.html", posts=posts)
+
+@bp.route("/comments/<int:post_id>/<action>",methods=("GET", "POST"))
+def comments(post_id,action):
+    db = get_db()
+    post = db.execute(
+        "SELECT p.id, title, body, created, author_id, username,"
+        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes,"
+        "(SELECT COUNT(user_id) FROM comments WHERE post_id = p.id) AS comments"
+        " FROM post p JOIN user u ON p.author_id = u.id"
+        " WHERE p.id = ?"
+        " ORDER BY created DESC"
+        , (post_id,),
+    ).fetchone()
+    comms = db.execute(
+        "SELECT c.id, body, created, user_id, username"
+        " FROM comments c JOIN user u ON c.user_id = u.id"
+        " WHERE c.post_id = ?"
+        " ORDER BY created DESC"
+        , (post_id,),
+    ).fetchall()
+
+    if request.method == "POST":
+        body = request.form["body"]
+        error = None
+
+        if not body:
+            error = "Body is required."
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                "INSERT INTO comments(post_id,user_id,body) VALUES(?,?,?)", (post_id,g.user["id"],body)
+            )
+            db.commit()
+            return redirect(url_for('blog.comments', post_id=post_id,action='view'))
+    return render_template("blog/comments.html",post=post,comms=comms,action=action)
+
+@bp.route('/delete/<int:comment_id>/<action>')
+@login_required
+def comment_action(comment_id, action):
+    if action == 'delete':
+        db = get_db()
+        db.execute(
+            "DELETE FROM comments WHERE id = ?", (comment_id,)
+        )
+        db.commit()
+    return redirect(request.referrer)
 
 @bp.route('/like/<int:post_id>/<action>')
 @login_required
@@ -107,7 +157,8 @@ def profile(userid):
     db = get_db()
     posts = db.execute(
         "SELECT p.id, title, body, created, author_id, username,"
-        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes"
+        "(SELECT COUNT(user_id) FROM likes WHERE post_id = p.id) AS likes,"
+        "(SELECT COUNT(user_id) FROM comments WHERE post_id = p.id) AS comments"
         " FROM post p JOIN user u ON p.author_id = u.id"
         " WHERE p.author_id = ?"
         " ORDER BY created DESC"
