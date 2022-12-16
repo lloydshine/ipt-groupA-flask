@@ -267,3 +267,7 @@ p.body {
   color: black
   !important;
 }
+
+a.unlike {
+    color: red;
+}

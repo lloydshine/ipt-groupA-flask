@@ -17,12 +17,12 @@
     <div class="opt">
         {% if g.user %}
             {% if [post['id'],g.user['id']] in g.liked %}
-                <a href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">
+                <a class="unlike" href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">
                     <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
                     <span class="item">Unlike</span>
                 </a>
             {% else %}
-                <a href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">
+                <a class="like" href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">
                     <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
                     <span class="item">Like {{ like }}</span>
                 </a>

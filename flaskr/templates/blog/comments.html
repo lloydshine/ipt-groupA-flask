@@ -16,7 +16,7 @@
     <div class="opt">
         {% if g.user %}
             {% if [post['id'],g.user['id']] in g.liked %}
-                <a href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">
+                <a class="unlike" href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">
                     <span class="icon">&nbsp&nbsp&nbsp<i class="fas fa-heart"></i></span>
                     <span class="item">Unlike</span>
                 </a>
@@ -63,7 +63,7 @@
         <p class="about">{{comm.username}} commented on {{comm.created.strftime("%B %d, %Y, %I:%M %p")}}: </p>
         <br>
         <br>
-        <p>{{comm.body}}</p>
+        <p class="body">{{comm.body}}</p>
     </div>
 </article>
 {% if g.user['id'] == comm['user_id'] %}
