@@ -22,6 +22,7 @@ body{
     height: 100%;
     padding: 20px 0;
     transition: all 0.5s ease;
+    z-index: 2;
 }
 
 .wrapper .sidebar .profile{
